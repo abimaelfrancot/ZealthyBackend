@@ -52,7 +52,7 @@ sql.connect(dbConfig).then(pool => {
     // GET endpoint
     app.get('/getTickets', async (req, res) => {
         try {
-            const result = await pool.request().query('SELECT * FROM tickets order by id desc');
+            const result = await pool.request().query('SELECT * FROM tickets with(nolock) order by id desc');
             res.json(result.recordset);
         } catch (err) {
             res.status(500).send(err.message);
